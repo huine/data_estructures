@@ -105,9 +105,12 @@ class DLL(object):
 
     def __getitem__(self, key):
         """."""
-        assert(isinstance(key, int) and abs(key) < self.length)
+        assert(isinstance(key, int))
 
-        if self.is_empty():
+        if key < 0:
+            key = key + 1
+
+        if self.is_empty() or not abs(key) < self.length:
             return None
 
         if key == 0:
