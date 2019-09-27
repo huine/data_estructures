@@ -1,66 +1,8 @@
-from DLL import DLL
-import random
+from Estoque import Estoque
 
-d = DLL()
+estoque = Estoque()
 
-r = random.randint(0, 100)
+estoque.cadastrar_mercadoria('teste', 15.25, 5, 1)
 
-d.insert_after(random.random())
-d.insert_after(random.random())
-d.insert_after(random.random())
-d.insert_after(random.random())
-d.insert_after(random.random())
-
-d.insert_before(r)
-d.insert_before(random.randint(0, 100))
-d.insert_before(random.randint(0, 100))
-d.insert_before(random.randint(0, 100))
-d.insert_before(random.randint(0, 100))
-
-d.insert_after(random.randint(0, 100))
-d.insert_after(random.randint(0, 100))
-d.insert_after(random.randint(0, 100))
-d.insert_after(random.randint(0, 100))
-
-print(len(d))
-
-for item in d:
-    print(item.id, item.item_value)
-
-print('\n\n\n\n')
-
-d.remove_id(10)
-
-print(len(d))
-
-for item in d:
-    print(item.id, item.item_value)
-
-print('\n\n\n\n')
-
-d.remove_id(14)
-
-print(len(d))
-
-for item in d:
-    print(item.id, item.item_value)
-
-print('\n\n\n\n')
-
-d.remove_id(5)
-
-print(len(d))
-
-for item in d:
-    print(item.id, item.item_value)
-
-
-print('\n\n\n\n')
-
-print(r)
-d.remove_value(r)
-
-print(len(d))
-
-for item in d:
-    print(item.id, item.item_value)
+for item in estoque.lista_mecadoria:
+    print(item)
