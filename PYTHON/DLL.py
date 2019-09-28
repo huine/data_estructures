@@ -15,9 +15,9 @@ class DLL(object):
         """."""
         return not self.length and True or False
 
-    def insert_after(self, item_value):
+    def insert_after(self, value):
         """Insert one item to the dll."""
-        l = LT(item_value=item_value)
+        l = LT(value=value)
 
         if self.first_item is None:
             self.first_item = l
@@ -32,9 +32,9 @@ class DLL(object):
             self.length += 1
             return
 
-    def insert_before(self, item_value):
+    def insert_before(self, value):
         """Insert one item to the dll."""
-        l = LT(item_value=item_value)
+        l = LT(value=value)
 
         if self.first_item is None:
             self.first_item = l
@@ -49,28 +49,28 @@ class DLL(object):
             self.length += 1
             return
 
-    def remove(self, item_value):
+    def remove(self, value):
         """."""
         r = None
-        if self.first_item.item_value == item_value:
-            r = self.first_item.item_value
+        if self.first_item.value == value:
+            r = self.first_item.value
             self.first_item.next_item.prev_item = None
             self.first_item = self.first_item.next_item
             self.length -= 1
             return r
 
-        if self.last_item.item_value == item_value:
-            r = self.last_item.item_value
+        if self.last_item.value == value:
+            r = self.last_item.value
             self.last_item.prev_item.next_item = None
             self.last_item = self.last_item.prev_item
             self.length -= 1
             return r
 
         for item in self:
-            if item.item_value == item_value:
+            if item.value == value:
                 item.prev_item.next_item = item.next_item
                 item.next_item.prev_item = item.prev_item
-                r = item.item_value
+                r = item.value
                 del item
                 self.length -= 1
 
@@ -80,7 +80,7 @@ class DLL(object):
     def pop(self, key):
         """."""
         curr = self[key]
-        self.remove(curr.item_value)
+        self.remove(curr.value)
         return curr
 
     def traversal(self, reverse=False):
@@ -88,13 +88,20 @@ class DLL(object):
         if not reverse:
             item = self.first_item
             while item is not None:
-                yield item
+                yield item.value
                 item = item.next_item
         else:
             item = self.last_item
             while item is not None:
-                yield item
+                yield item.value
                 item = item.prev_item
+
+    def has_item(self, value):
+        """."""
+        for item in self:
+            if item.value == value:
+                return True
+        return False
 
     def __iter__(self):
         """."""
@@ -134,16 +141,16 @@ class DLL(object):
 class LT(object):
     """docstring for LT."""
 
-    def __init__(self, prev_item=None, next_item=None, item_value=None):
+    def __init__(self, prev_item=None, next_item=None, value=None):
         """."""
         self.prev_item = prev_item
         self.next_item = next_item
-        self.item_value = item_value
+        self.value = value
 
     def __str__(self):
         """."""
-        return str(self.item_value)
+        return str(self.value)
 
     def __repr__(self):
         """."""
-        return self.item_value
+        return str(self.value)
