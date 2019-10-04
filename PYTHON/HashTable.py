@@ -1,32 +1,60 @@
-from DLL import DLL
+
 class HashTable(object):
     """Docstring for HashTable."""
 
-    def __init__(self):
+    def __init__(self, n=100):
         """."""
-        self.__attr_list__ = DLL()
+        self.hash_table = [None] * n
 
-    def put(self, key, value):
-        if self.__attr_list__.has_item(key):
-            self.delete(key)
-        self.__attr_list__.insert_after(key)
+    def hash_func(self, key):
+        """."""
+        return hash(key) % len(self.hash_table)
 
-        key_hash = str(hash(key))
-        setattr(self, key_hash, value)
-        return True
+    def set(self, key, value):
+        """."""
+        self.hash_table[self.hash_func(key)] = (key, value)
+        return self
 
     def get(self, key, default=None):
-        key = str(hash(key))
-        return getattr(self, key, default)
+        """."""
+        return self.hash_table[self.hash_func(key)] and\
+            self.hash_table[self.hash_func(key)][1] or default
 
-    def delete(self, key):
-        r = self.get(key)
-        self.__attr_list__.remove(key)
-        key = str(hash(key))
-        delattr(self, key)
-        return r
+    def rem(self, key):
+        """."""
+        self.hash_table[self.hash_func(key)] = None
+        return self
+
+    def keys(self):
+        """."""
+        return [k for k, v in self]
+
+    def items(self):
+        """."""
+        for item in self:
+            yield item
+
+    def __getitem__(self, key):
+        """."""
+        return self.get(key)
+
+    def __setitem__(self, key, value):
+        """."""
+        return self.set(key, value)
+
+    def __len__(self):
+        """."""
+        return len([i for i in self.hash_table if i is not None])
+
+    def __str__(self):
+        """."""
+        return str([i for i in self.hash_table if i is not None])
+
+    def __repr__(self):
+        """."""
+        return str([i for i in self.hash_table if i is not None])
 
     def __iter__(self):
         """."""
-        for key in self.__attr_list__:
-            yield (key.value, self.get(key.value))
+        for i in [i for i in self.hash_table if i is not None]:
+            yield i
