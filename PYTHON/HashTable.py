@@ -1,4 +1,3 @@
-
 class HashTable(object):
     """Docstring for HashTable."""
 
