@@ -37,6 +37,42 @@ class AVLTree(object):
         self.root.insert(new_node)
         self.rebalance(new_node)
 
+    def find_min_sub(self):
+        """."""
+        return self.root and self.root.find_min_sub()
+
+    def find_min(self):
+        """."""
+        node = self.root
+        while node is not None:
+            if node.left is None:
+                return node
+            else:
+                node = node.left
+        return node
+
+    def find_max(self):
+        """."""
+        node = self.root
+        while node is not None:
+            if node.right is None:
+                return node
+            else:
+                node = node.right
+        return node
+
+    def find(self, val):
+        """."""
+        node = self.root
+        while node is not None:
+            if node == val:
+                return node
+            elif val < node:
+                node = node.left
+            else:
+                node = node.right
+        return node
+
 
 class AVLNode(object):
     """Docstring for AVLNode."""
@@ -51,7 +87,8 @@ class AVLNode(object):
 
     def _str(self):
         """Internal method for ASCII art."""
-        label = '%s(%s-%s)' % (str(self.value), str(self.height), str(abs(getattr(self.left, 'height', -1) - getattr(self.right, 'height', -1))))
+        label = '%s(%s-%s)' % (str(self.value), str(self.height),
+                               str(abs(getattr(self.left, 'height', -1) - getattr(self.right, 'height', -1))))
         if self.left is None:
             left_lines, left_pos, left_width = [], 0, 0
         else:
@@ -92,15 +129,24 @@ class AVLNode(object):
 
     def __lt__(self, other):
         """."""
-        return self.value < other.value
+        if isinstance(other, AVLNode):
+            return self.value < other.value
+        else:
+            return self.value < other
 
     def __gt__(self, other):
         """."""
-        return self.value > other.value
+        if isinstance(other, AVLNode):
+            return self.value > other.value
+        else:
+            return self.value > other
 
     def __eq__(self, other):
         """."""
-        return self.value == other.value
+        if isinstance(other, AVLNode):
+            return self.value == other.value
+        else:
+            return self.value == other
 
     def insert(self, node):
         """."""
@@ -120,3 +166,11 @@ class AVLNode(object):
             else:
                 self.right.insert(node)
         return
+
+    def find_min_sub(self):
+        """."""
+        node = self
+        if node.left is not None:
+            node = node.left
+
+        return node
