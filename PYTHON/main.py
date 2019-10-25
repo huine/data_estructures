@@ -1,16 +1,22 @@
-from AVL import AVLTree
-from random import randrange, choice
+from HashTable import HashTable
 
-avl = AVLTree()
-r = [randrange(1, 10000) for i in range(1000)]
-search = choice(r)
-for i in r:
-    avl.insert(i)
+h = HashTable()
 
-# print(avl)
-print("Min List: %s" % (min(r)))
-print("Max List: %s" % (max(r)))
-print("Min Tree: %s" % (avl.find_min().value))
-print("Max Tree: %s" % (avl.find_max().value))
-print("Item find List: %s" % (search))
-print("Item find Tree: %s" % (avl.find(11000)))
+h['a'] = 'teste a'
+h[44] = 'teste 44'
+h['b'] = 'teste b'
+h[31] = 'teste 31'
+h['c'] = 'teste c'
+h[14] = 'teste 14'
+h['e'] = 'teste e'
+h[84] = 'teste 84'
+h['f'] = 'teste f'
+h[71] = 'teste 71'
+
+print(h)
+print(h.get('a'))
+
+
+del h[71]
+
+print(h)
